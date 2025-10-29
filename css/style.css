@@ -3,6 +3,9 @@
 /*---
 基本
 ---*/
+html{
+    scroll-behavior: smooth;
+}
 body{
     background-color: #f5f5f5;
 }
@@ -19,6 +22,34 @@ li{
     list-style: none;
     margin: 0 10px;
 }
+/*---
+js
+---*/
+    html,
+    body {
+      height: 100%;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 500px;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #444;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
 /*---
 header
 ---*/
@@ -50,7 +81,7 @@ button{
 }
 
 /*---
-section1-1
+section1
 ---*/
 .section1-h1{
     font-size: 2.5rem;
@@ -65,14 +96,16 @@ section1-1
 }
 
 /*---
-section-2
+section2
 ---*/
+.section2{
+    margin-bottom: 100px;
+}
 img{
     max-width: 100%;
     height: auto;
 }
 .section2-ul{
-    border: 1px solid #aaa;
     padding: 10px;
 	width: auto;
 	height: auto;
@@ -80,6 +113,7 @@ img{
 .section2-li{
     border: 1px solid #aaa;
     border-radius: 10px;
+    background-color: #f5f5f5;
     padding: 10px;
 	width: auto;
 	height: auto;
@@ -116,4 +150,59 @@ img{
 .section2-h6-2{
     font-size: 0.9rem;
     color: #aaa;
+}
+
+/*---
+section3
+---*/
+.section3{
+    background-color: #ddd;
+    margin-bottom: 100px;
+    padding-top:50px ;
+    padding-bottom: 100px;
+}
+.section3 h2{
+    text-align: center;
+}
+.section3 .section2-h6-2{
+    text-align: center;
+}
+.section3-div{
+    text-align: center;
+}
+
+/*---
+section4
+---*/
+.section4{
+    margin-bottom: 100px;
+}
+
+/*---
+section5
+---*/
+.section5{
+    margin-bottom: 100px;
+    padding-bottom: 100px;
+}
+table{
+    border-collapse: collapse;
+    text-align: left;
+    margin: 0 auto;
+    
+}
+tr{
+    border-bottom: solid 1px #ffee00;
+
+}
+th{
+    padding: 20px 40px;
+}
+.section5-th1{
+    background: #fff5e5;
+}
+td{
+    padding: 20px 40px;
+    color: #aaa;
+
 }
