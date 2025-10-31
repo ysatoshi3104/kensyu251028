@@ -61,7 +61,7 @@
                 <div>
                     <button @click="filterCategory('all')">すべて</button>
                     <button @click="filterCategory('海水魚')">海水魚</button>
-                    <button @click="filterCategory('B')">カテゴリB</button>
+                    <button @click="filterCategory('淡水魚')">淡水魚</button>
                     <button @click="filterCategory('C')">カテゴリC</button>
                 </div>
                 <ul  class="section2-ul">
@@ -190,7 +190,7 @@
                             'habitat': '太平洋、大西洋の温暖な海域',
                             'season': '冬〜春',
                             'image': 'images/fresh-tuna-fish-sashimi.jpg',
-                            category: '海水魚'
+                            category: '海水魚',
                             pickup: true
 
                         },
@@ -252,14 +252,6 @@
 
                         },
                     ])
-                        // フィルタリングされたユーザーリスト
-                        const filteredfishLists = computed(() => {
-                            if (selectedCategory.value === 'all') {
-                            return fishLists.value
-                            }
-                            console.log(fishLists.length)
-                            return fishLists.value.filter(fish => fish.category === selectedCategory.value)
-                        })
                         // フィルタリングされたユーザーリスト
                         const filteredfishLists = computed(() => {
                             if (selectedCategory.value === 'all') {
