@@ -62,24 +62,24 @@
                     <button @click="filterCategory('all')">すべて</button>
                     <button @click="filterCategory('海水魚')">海水魚</button>
                     <button @click="filterCategory('淡水魚')">淡水魚</button>
-                    <button @click="filterCategory('C')">カテゴリC</button>
+                    <button @click="filterCategory('c')">c</button>
                 </div>
                 <ul  class="section2-ul">
                     <li id="scroll1" class="section2-li" v-for="(fish, index) in filteredfishLists" >
-                        <img :src="fishLists[index].image"/>
-                        <h2 class="section2-h2">{{ fishLists[index].name }}</h2>
-                        <h3 class="section2-h3">{{ fishLists[index].nameEnglish }}</h3>
-                        <h4 class="section2-h4">{{ fishLists[index].sentence }}</h4>
+                        <img :src="fish.image"/>
+                        <h2 class="section2-h2">{{ fish.name }}</h2>
+                        <h3 class="section2-h3">{{ fish.nameEnglish }}</h3>
+                        <h4 class="section2-h4">{{ fish.sentence }}</h4>
                         <div class="flex">
-                        <h5 class="section2-h5">{{ fishLists[index].ayouso[0] }}</h5>
-                        <h5 class="section2-h5">{{ fishLists[index].ayouso[1] }}</h5>
-                        <h5 class="section2-h5">{{ fishLists[index].ayouso[2] }}</h5>
+                        <h5 class="section2-h5">{{ fish.ayouso[0] }}</h5>
+                        <h5 class="section2-h5">{{ fish.ayouso[1] }}</h5>
+                        <h5 class="section2-h5">{{ fish.ayouso[2] }}</h5>
                         </div>
                         <div class="flex">
-                        <h6 class="section2-h6">生息地: {{ fishLists[index].habitat }}</h6><h6 class="section2-h6-2"></h6>
+                        <h6 class="section2-h6">生息地: {{ fish.habitat }}</h6><h6 class="section2-h6-2"></h6>
                         </div>
                         <div class="flex">
-                        <h6 class="section2-h6">旬:{{ fishLists[index].season }}</h6><h6 class="section2-h6-2"></h6>
+                        <h6 class="section2-h6">旬:{{ fish.season }}</h6><h6 class="section2-h6-2"></h6>
                     </li>
                 </ul>
             </div>
@@ -214,7 +214,7 @@
                             'habitat': '日本近海、太平洋',
                             'season': '秋〜冬',
                             'image': 'images/fresh-mackerel-fish.jpg',
-                            category: '淡水魚'
+                            category: '海水魚'
 
 
                         },
@@ -253,14 +253,23 @@
                         },
                     ])
                         // フィルタリングされたユーザーリスト
-                        const filteredfishLists = computed(() => {
+                            const filteredfishLists = computed(() => {
                             if (selectedCategory.value === 'all') {
-                            return fishLists.value
+                                return fishLists.value
                             }
-                            console.log(fishLists.length)
-                            return fishLists.value.filter(fish => fish.category === selectedCategory.value)
+                            console.log('selectedCategory:', selectedCategory.value)
+                            console.log('fishLists:', fishLists.value)
+                            
+                            const filtered = fishLists.value.filter(fish => {
+                                console.log("===========================")
+                                console.log('name:', fish.name, typeof fish.name)
+                                console.log('fish.category:', fish.category, typeof fish.category)
+                                console.log('比較:', fish.category === selectedCategory.value)
+                                return fish.category === selectedCategory.value
+                            })
+                            console.log('フィルタリング結果:', filtered)
+                            return filtered
                         })
-
                         
                         // カテゴリを切り替える関数
                         const filterCategory = (category) => {
