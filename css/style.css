@@ -177,6 +177,17 @@ section3
     text-align: center;
 }
 
+#box {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+text {
+ font-size: 3rem;
+ stroke: #240401;
+ fill: #240401;
+}
 /*---
 section4
 ---*/
@@ -215,10 +226,55 @@ td{
 
 
 
-
-
-
 /* レスポンシブ　PC用のCSSはメディアクエリの外に記述する */
 @media screen and (max-width: 959px) {
     /* スタイル */
+}
+
+
+/*----
+animetion
+----*/
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  background: #000000;
+  padding: 2rem;
+}
+
+.icon-zoom-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+  background: linear-gradient(135deg, #ddd 0%, #f0f0f0 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px #000(102, 126, 234, 0.3);
+}
+
+.btn-icon {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.icon-zoom-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px #000(102, 126, 234, 0.4);
+}
+
+.icon-zoom-btn:hover .btn-icon {
+  transform: scale(1.5);
+}
+
+.btn-text {
+  display: block;
 }
