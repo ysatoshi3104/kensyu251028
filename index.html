@@ -41,6 +41,7 @@
             },
             });
         </script>
+        <div class="animationElement"></div>
         <header>
             <p class="header-p1">日本の海の恵み。</p>
             <h1 class="header-h1">魚の特徴を知って<br>健康的な食生活を</h1>
@@ -49,6 +50,7 @@
                 <li><button class="header-btn1">魚の種類を見る</button></li>
                 <li><button class="header-btn2">栄養価値について</button></li>
             </ul>
+            <div class="animationElement2"></div>
         </header>
         <section class="section1">
             <div>
@@ -56,7 +58,12 @@
                 <h2 class="section1-h2">日本の食卓を彩る、栄養豊富な魚たちをご紹介します</h2>
             </div>
         </section>
-        <section class="section2">
+        <section class="section2" class="sectionBird">
+
+            <div clas="wrapper">
+                <img class="bird" src="images/hummingbird.svg" alt="" width="120" height="80">
+            </div>
+            
             <div id="fishDataerea">
                 <div>
                     <button @click="filterCategory('all')">すべて</button>
@@ -64,7 +71,7 @@
                     <button @click="filterCategory('淡水魚')">淡水魚</button>
                     <button @click="filterCategory('c')">c</button>
                 </div>
-                <ul  class="section2-ul">
+                <ul  class="section2-ul" class="flex">
                     <li id="scroll1" class="section2-li" v-for="(fish, index) in filteredfishLists" >
                         <img :src="fish.image"/>
                         <h2 class="section2-h2">{{ fish.name }}</h2>
@@ -180,7 +187,6 @@
             </table>
         </section>
         <footer>
-
         </footer>
             <script>
                 const { createApp, ref, computed } = Vue
@@ -293,6 +299,6 @@
                 }).mount('#fishDataerea')
             </script>
 
-
+        
     </body>
 </html>

@@ -232,49 +232,122 @@ td{
 }
 
 
+
 /*----
-animetion
+animation
 ----*/
 
-.button-container {
+/* 垂直方向にスケールを変えるキーフレーム */
+@keyframes grow-progress {
+  from {
+    scale: 1 1.5;
+  }
+  to {
+    scale: 1 3;
+  }
+}
+
+.animationElement {
+  /* スタイリング */
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  transform-origin: bottom; /* 下部を変形の基準にしておく */
+  
+  /* スクロールアニメーションの設定 */
+  animation: grow-progress linear; /* アニメーションを指定。イージングはlinear */
+  animation-timeline: scroll();
+  
+
+      /* Z-indexを低く設定して、他の要素の下に置く */
+    z-index: -1; 
+    
+    /* 背景画像や色を設定 */
+    background: url('../images/back.svg') no-repeat center center / contain;
+    
+
+}
+
+.animationElement2 {
+  /* スタイリング */
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  transform-origin: bottom; /* 下部を変形の基準にしておく */
+  
+  /* スクロールアニメーションの設定 */
+  animation: grow-progress linear; /* アニメーションを指定。イージングはlinear */
+  animation-timeline: scroll();
+
+      /* Z-indexを低く設定して、他の要素の下に置く */
+    z-index: -1; 
+    
+    /* 背景画像や色を設定 */
+    background: url('../images/front.svg') no-repeat center center / contain;
+
+}
+
+
+/* ------------ キラキラ：opacity 鳥：offset ------------ */
+.wrapper {
+  background-color: #41cca4;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  min-height: 60vh;
-  background: #000000;
-  padding: 2rem;
+  overflow-x: clip;
+}
+.sectionBird {
+  position: relative;
+  padding: 300px 1vw;
+  background-color: #41cca4;
 }
 
-.icon-zoom-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 15px 30px;
-  font-size: 16px;
-  font-weight: 600;
-  color: black;
-  background: linear-gradient(135deg, #ddd 0%, #f0f0f0 100%);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px #000(102, 126, 234, 0.3);
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
 }
 
-.btn-icon {
-  font-size: 18px;
-  transition: transform 0.3s ease;
+.sectionBird::before {
+  left: -18vw;
 }
 
-.icon-zoom-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px #000(102, 126, 234, 0.4);
+.sectionBird::after {
+  right: -18vw;
+  scale: -1 -1;
 }
 
-.icon-zoom-btn:hover .btn-icon {
-  transform: scale(1.5);
+.sectionBird p {
+  margin: 0 auto 100px;
+  max-width: 800px;
 }
 
-.btn-text {
-  display: block;
+.bird {
+  position: absolute;
+  top: 20%;
+  left: -120px;
+
+  /* offsetプロパティの紹介記事： https://ics.media/entry/230327/ */
+  offset-path: path("m16.335.397C8.884,6.095-1.144,31.39.729,36.776c6.402,18.409,34.762,21.381,37.982,33.361,8.471,31.513-18.708,30.613-24.591,36.49-10.986,10.974-.465,49.54,16.065,68.698,30.176,34.972,17.15,70.578-23.667,93.591");
+  offset-rotate: 0deg;
+
+  animation: fly-bird linear both;
+  animation-timeline: view();
+  animation-range: cover 0% exit 250%;
+}
+
+@keyframes fly-bird {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+.bird__reverse {
+  top: unset;
+  left: unset;
+  right: -120px;
+  bottom: 40%;
+  offset-path: path("m16.335.397C8.884,6.095-1.144,31.39.729,36.776c6.402,18.409,34.762,21.381,37.982,33.361,8.471,31.513-18.708,30.613-24.591,36.49-12.555,12.542-2.606,67.337,25.866,72.92");
+  offset-rotate: 20deg;
+  scale: -1 1;
 }
