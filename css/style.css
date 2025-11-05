@@ -33,6 +33,7 @@ js
     .swiper {
       width: 100%;
       height: 500px;
+      margin-bottom: 100px;
     }
     .swiper-slide {
       text-align: center;
@@ -166,6 +167,7 @@ section3
     margin-bottom: 100px;
     padding-top:50px ;
     padding-bottom: 100px;
+    background-color: hsla(0, 0%, 70%, 0.9); /* 青の背景色を50%透明にする */
 }
 .section3 h2{
     text-align: center;
@@ -230,15 +232,25 @@ td{
 @media screen and (max-width: 959px) {
     /* スタイル */
 }
-
-
+/* ホバー時にボタンアイコン全体を少し拡大 */
+.btn-icon {
+    /* これを追加 */
+    display: inline-block; 
+    /* ホバーを解除した後（元に戻る時）のアニメーション設定 */
+    transition: transform 0.2s ease-out; /* ← ここで時間を設定 */
+}
+.icon-zoom-btn:hover .btn-icon {
+    transform: scale(1.5);
+    transition: transform 0.2s ease-out;
+}
 
 /*----
 animation
 ----*/
 
-/* 垂直方向にスケールを変えるキーフレーム */
-@keyframes grow-progress {
+/* 1. "速い" アニメーション (front用) */
+/* 1.5倍から3倍まで、大きく変化する */
+@keyframes grow-fast {
   from {
     scale: 1 1.5;
   }
@@ -247,107 +259,69 @@ animation
   }
 }
 
-.animationElement {
-  /* スタイリング */
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  transform-origin: bottom; /* 下部を変形の基準にしておく */
-  
-  /* スクロールアニメーションの設定 */
-  animation: grow-progress linear; /* アニメーションを指定。イージングはlinear */
-  animation-timeline: scroll();
-  
-
-      /* Z-indexを低く設定して、他の要素の下に置く */
-    z-index: -1; 
-    
-    /* 背景画像や色を設定 */
-    background: url('../images/back.svg') no-repeat center center / contain;
-    
-
+/* 2. "遅い" アニメーション (back用) */
+/* 1.5倍から2倍まで、控えめに変化する */
+@keyframes grow-slow {
+  from {
+    scale: 1 1.5;
+  }
+  to {
+    scale: 1 2; /* 変化の幅を小さくする */
+  }
 }
 
-.animationElement2 {
+/* 3. 各要素に別々のアニメーションを適用 */
+
+.animationElement { /* back.svg (遅い方) */
   /* スタイリング */
   position: fixed;
   width: 100%;
   height: 100%;
-  transform-origin: bottom; /* 下部を変形の基準にしておく */
+  transform-origin: bottom; 
   
   /* スクロールアニメーションの設定 */
-  animation: grow-progress linear; /* アニメーションを指定。イージングはlinear */
+  animation: grow-slow linear; /* ← "遅い"方を適用 */
+  animation-timeline: scroll();
+  
+  /* Z-indexを低く設定 */
+  z-index: -2; 
+  background: url('../images/back.svg') no-repeat center center / contain;
+}
+
+.animationElement2 { /* front.svg (速い方) */
+  /* スタイリング */
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  transform-origin: bottom; 
+  
+  /* スクロールアニメーションの設定 */
+  animation: grow-fast linear; /* ← "速い"方を適用 */
   animation-timeline: scroll();
 
-      /* Z-indexを低く設定して、他の要素の下に置く */
-    z-index: -1; 
-    
-    /* 背景画像や色を設定 */
-    background: url('../images/front.svg') no-repeat center center / contain;
-
+  /* Z-indexを低く設定 */
+  z-index: -1; 
+  background: url('../images/front.svg') no-repeat center center / cover;
 }
 
 
 /* ------------ キラキラ：opacity 鳥：offset ------------ */
-.wrapper {
-  background-color: #41cca4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: clip;
-}
-.sectionBird {
-  position: relative;
-  padding: 300px 1vw;
-  background-color: #41cca4;
-}
+#moving-image {
+/* 1. 画面に位置を固定 */
+    position: fixed;
+    
+    /* 2. 動きの基準となる初期位置 */
+    top: 150px;
+    left: 50px;
+    
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-}
+    /* 3. 動きを滑らかにするための設定 */
+    /* JavaScriptでtransformを変更した際に0.1秒かけて変化する */
+    transition: transform 0.1s linear;
 
-.sectionBird::before {
-  left: -18vw;
-}
-
-.sectionBird::after {
-  right: -18vw;
-  scale: -1 -1;
-}
-
-.sectionBird p {
-  margin: 0 auto 100px;
-  max-width: 800px;
-}
-
-.bird {
-  position: absolute;
-  top: 20%;
-  left: -120px;
-
-  /* offsetプロパティの紹介記事： https://ics.media/entry/230327/ */
-  offset-path: path("m16.335.397C8.884,6.095-1.144,31.39.729,36.776c6.402,18.409,34.762,21.381,37.982,33.361,8.471,31.513-18.708,30.613-24.591,36.49-10.986,10.974-.465,49.54,16.065,68.698,30.176,34.972,17.15,70.578-23.667,93.591");
-  offset-rotate: 0deg;
-
-  animation: fly-bird linear both;
-  animation-timeline: view();
-  animation-range: cover 0% exit 250%;
-}
-
-@keyframes fly-bird {
-  to {
-    offset-distance: 100%;
-  }
-}
-
-.bird__reverse {
-  top: unset;
-  left: unset;
-  right: -120px;
-  bottom: 40%;
-  offset-path: path("m16.335.397C8.884,6.095-1.144,31.39.729,36.776c6.402,18.409,34.762,21.381,37.982,33.361,8.471,31.513-18.708,30.613-24.591,36.49-12.555,12.542-2.606,67.337,25.866,72.92");
-  offset-rotate: 20deg;
-  scale: -1 1;
+    /* 4. ブラウザに「transformが動く」と伝えて最適化を促す */
+    will-change: transform;
 }

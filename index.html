@@ -21,8 +21,6 @@
                 <div class="swiper-slide"><img src="images/fresh-horse-mackerel-aji-fish.jpg" alt=""></div>
                 <div class="swiper-slide"><img src="images/fresh-sardine-iwashi-fish.jpg" alt=""></div>
                 <div class="swiper-slide">Slide 7</div>
-                <div class="swiper-slide">Slide 8</div>
-                <div class="swiper-slide">Slide 9</div>
             </div>
             <div class="swiper-pagination"></div>
         </div>
@@ -58,10 +56,10 @@
                 <h2 class="section1-h2">日本の食卓を彩る、栄養豊富な魚たちをご紹介します</h2>
             </div>
         </section>
-        <section class="section2" class="sectionBird">
+        <section class="section2">
 
             <div clas="wrapper">
-                <img class="bird" src="images/hummingbird.svg" alt="" width="120" height="80">
+                <img class="bird" id="moving-image" src="images/hummingbird.svg" alt="" width="120" height="80">
             </div>
             
             <div id="fishDataerea">
@@ -69,7 +67,7 @@
                     <button @click="filterCategory('all')">すべて</button>
                     <button @click="filterCategory('海水魚')">海水魚</button>
                     <button @click="filterCategory('淡水魚')">淡水魚</button>
-                    <button @click="filterCategory('c')">c</button>
+                    <button @click="filterCategory('true')">Pickup</button>
                 </div>
                 <ul  class="section2-ul" class="flex">
                     <li id="scroll1" class="section2-li" v-for="(fish, index) in filteredfishLists" >
@@ -297,6 +295,38 @@
                     }
                     }
                 }).mount('#fishDataerea')
+            </script>
+            <script>
+                // ページの読み込みが完了したら実行
+                document.addEventListener('DOMContentLoaded', () => {
+
+                    // 動かす対象の画像を取得
+                    const img = document.getElementById('moving-image');
+
+                    // ウィンドウのスクロールイベントを監視
+                    window.addEventListener('scroll', () => {
+                        // 現在のスクロール量（Y座標）を取得
+                        let scrollY = window.scrollY;
+
+                        // --- ジグザグの計算 ---
+                        // 三角関数 (Math.sin) を使うと、波のような動き（-1から1）を作れます
+
+                        // 1. 横方向（ジグザグ）の動き
+                        const amplitudeX = 50;  // 横の振れ幅（px）
+                        const frequencyX = 0.01; // ジグザグの細かさ（小さいほど大振り）
+                        const xOffset = amplitudeX * Math.sin(scrollY * frequencyX);
+
+                        // 2. 縦方向（上下）の動き
+                        const amplitudeY = 30;  // 縦の振れ幅（px）
+                        const frequencyY = 0.02; // 上下動の細かさ
+                        // Math.cos を使うと、sin（横）とは少しタイミングがずれた動きになる
+                        const yOffset = amplitudeY * Math.cos(scrollY * frequencyY);
+
+                        // 3. CSSのtransformプロパティを更新
+                        // translate(Xの移動量, Yの移動量) で基準位置から動かす
+                        img.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+                    });
+                });
             </script>
 
         
